@@ -6,68 +6,96 @@
 //  Copyright © 2018 Andrea Cappelletti. All rights reserved.
 //
 
-// Example program
 #include <iostream>
-#include <string>
-#include <vector>
 
-#define size 3
+//Define the constant size of the array
+#define size 5
 
-struct Coord{
-    int x;
-    int y;
-};
-
-void print(int array[][size]){
-    for(int i=0; i<size; i++){
-        for(int m=0; m<size; m++){
-            std::cout<<array[i][m];
-            }
-        std::cout<<std::endl;
+void merge(int array[], int& first, int& middle, int& last){
+    //Calculate the length of the support array tmp
+    int length = last-first+1;
+    
+    int* tmp = new int[length];
+    
+    int startLeft = first;
+    
+    int startRight = middle+1;
+    
+    //Let's fill the ordered array tmp
+    for(int i = 0; i<length; ++i){
+        //If left is in overflow, let's fill right
+        if(startLeft>middle){
+            
+            tmp[i] = array[startRight++];
+            
+        }
+        //If right is in overflow, let's fill left
+        else if(startRight>last){
+            
+            tmp[i] = array[startLeft++];
+            
+        }
+        //If left and right are not empty
+        //Let's compare the elements
+        //If the first element of left is less than the first of right
+        //Let's add it to tmp
+        else if(array[startLeft]<=array[startRight]){
+            
+            tmp[i] = array[startLeft++];
+            
+        }
+        
+        else{
+            
+            tmp[i] = array[startRight++];
+            
+        }
         
     }
-}
-Coord findCoord(int array[][size]){
-    Coord current;
-    for(int c=0; c<size; c++){
-        for(int r=0; r<size; r++){
-            if(array[r][c]==1){
-                current.x=c;
-                current.y=r;
-            }
-        }
+    //Now it's time to return the array ordered
+    for (int m=0; m< length; ++m){
+        
+        array[first++] =tmp[m];
+        
     }
-    return current;
+    delete [] tmp;
+    
+    
 }
 
-bool checkCoord(int x, int y){
-    if((x>=0 || x<size) && (y>=0 || y<size)){
-        return true;
+void mergeSort(int array[], int first, int last){
+    
+    if(first>=last)
+        
+        return;
+    
+    
+    int middle = first + (last-first)/2;
+   
+    
+    mergeSort(array, first, middle);
+    
+    mergeSort(array, middle+1, last);
+    
+    merge(array, first, middle, last);
+    
+    
+}
+
+void print(int array[]){
+    for(int i = 0; i< size; i++){
+        
+        std:: cout <<array[i]<<" ";
+        
     }
-    return false;
+    std::cout<<std::endl;
 }
 
-bool percorso(int array[][size], int x_player, int y_player, int x, int y){
-    
-    
-    return true;
+int main(){
+    int array[size]={4,6,3,2,1};
+    std::cout<<"Array before mergeSort"<<std::endl;
+    print(array);
+    mergeSort(array, 0, size-1);
+    std::cout<<"Array after mergeSort"<<std::endl;
+    print(array);
 }
-
-int main()
-{
-    
-    int griglia[size][size] = {
-        {2,1,1},
-        {0,0,1},
-        {3,1,1}
-    };
-    
-    print(griglia);
-    //std::cout<<findCoord(griglia).x<<findCoord(griglia).y;
-    if(percorso(griglia,0,0,0,2)){
-        std::cout<<"Percorso trovato"<<std::endl;
-    }
-    
-}
-
-
