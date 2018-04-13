@@ -2,4 +2,4 @@
 Collection of Sorting Algorithms in different programming languages
 
   * C++
-   - Merge Sort https://www.cmprogrammers.com/post.php?id=51
+    Merge Sort https://www.cmprogrammers.com/post.php?id=51
