@@ -13,28 +13,28 @@
 //Function Merge that combine the processed array
 void merge(int array[], int& first, int& middle, int& last){
    
-    int length = last-first+1;                              //Calculate the length of the support array tmp
+    int length = last-first+1;                          //Calculate the length of the support array tmp
     
-    int* tmp = new int[length];                             //Inizialize tmp
+    int* tmp = new int[length];                         //Inizialize tmp
     
-    int startLeft = first;                                  //Save the initial index of the left array
+    int startLeft = first;                              //Save the initial index of the left array
     
-    int startRight = middle+1;                              //Save the initial index of the right array
+    int startRight = middle+1;                          //Save the initial index of the right array
     
     
-    for(int i = 0; i<length; ++i){                          //Let's fill the ordered array tmp with a for cicle
-                                                            //Each time we are going to add the minimum element
+    for(int i = 0; i<length; ++i){                      //Let's fill the ordered array tmp with a for cicle
+                                                        //Each time we are going to add the minimum element
         if(array[startLeft]<=array[startRight]){
-            tmp[i] = array[startLeft++];                    //The left element is the least
+            tmp[i] = array[startLeft++];                //The left element is the least
         }
         
         else if (array[startLeft]>array[startRight]){
-            tmp[i] = array[startRight++];                   //The right element is the least
+            tmp[i] = array[startRight++];               //The right element is the least
             
         }
         
-                                                            //Once we have finished the comparisons let's fill the array
-                                                            //with the missing elements
+                                                        //Once we have finished the comparisons let's fill the array
+                                                        //with the missing elements
        else if(startLeft>middle){
            tmp[i] = array[startRight++];
            
@@ -58,19 +58,19 @@ void merge(int array[], int& first, int& middle, int& last){
 //This is the recursive function
 void mergeSort(int array[], int first, int last){
     
-    if(first>=last)                                         //Base case
+    if(first>=last)                                    //Base case
         
         return;
     
     
-    int middle = first + (last-first)/2;                    //Calculate the middle of the array (with this method we avoid the overflow)
+    int middle = first + (last-first)/2;               //Calculate the middle of the array (with this method we avoid the overflow)
    
     
-    mergeSort(array, first, middle);                        //Let's call the function recursively
+    mergeSort(array, first, middle);                   //Let's call the function recursively
     
     mergeSort(array, middle+1, last);
     
-    merge(array, first, middle, last);                      //And then...merge!
+    merge(array, first, middle, last);                 //And then...merge!
     
     
 }
@@ -86,7 +86,7 @@ void print(int array[]){
 
 //Main
 int main(){
-    int array[size]={4,6,3,2,1};                            //Let's fill our array of size defined in the beginning of the file
+    int array[size]={4,6,3,2,1};                       //Let's fill our array of size defined in the beginning of the file
     std::cout<<"Array before mergeSort"<<std::endl;
     print(array);
     mergeSort(array, 0, size-1);
