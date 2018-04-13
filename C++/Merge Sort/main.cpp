@@ -17,34 +17,27 @@ void merge(int array[], int& first, int& middle, int& last){
     
     int* tmp = new int[length];                         //Inizialize tmp
     
-    int startLeft = first;                              //Save the initial index of the left array
+    int startLeft = first;                              //Save the initial index of the left side array
     
-    int startRight = middle+1;                          //Save the initial index of the right array
+    int startRight = middle+1;                          //Save the initial index of the right side array
     
     
     for(int i = 0; i<length; ++i){                      //Let's fill the ordered array tmp with a for cicle
-                                                        //Each time we are going to add the minimum element
-        if(array[startLeft]<=array[startRight]){
+         if(startLeft>middle){                          //We have finished to fill the right side of the array
+             tmp[i] = array[startRight++];
+        }
+        else if(startRight>last){
+            tmp[i] = array[startLeft++];                //We have finished to fill the left side of the array
+        }
+        else if(array[startLeft]<=array[startRight]){   //Each time we are going to add the minimum element
             tmp[i] = array[startLeft++];                //The left element is the least
         }
-        
-        else if (array[startLeft]>array[startRight]){
+        else{
             tmp[i] = array[startRight++];               //The right element is the least
-            
         }
-        
-                                                        //Once we have finished the comparisons let's fill the array
-                                                        //with the missing elements
-       else if(startLeft>middle){
-           tmp[i] = array[startRight++];
-           
-       }
-       else (startRight>last){
-           tmp[i] = array[startLeft++];
-           
-       }
-        
     }
+    
+  
     
     //Let's save the ordered array and delete tmp
     for (int m=0; m< length; ++m){
@@ -75,7 +68,7 @@ void mergeSort(int array[], int first, int last){
     
 }
 
-//This function allow us to print the array so we can check if the merge was successfull
+//This function allows us to print the array so we can check if the merge was successful
 void print(int array[]){
     for(int i = 0; i< size; i++){
         std:: cout <<array[i]<<" ";
