@@ -63,7 +63,7 @@ void mergeSort(int array[], int first, int last){
         return;
     
     
-    int middle = first + (last-first)/2;               //Calculate the middle of the array (with this method we avoid the overflow)
+    int middle = first + (last-first)/2;               //Calculate the middle of the array (avoiding the overflow)
    
     
     mergeSort(array, first, middle);                   //Let's call the function recursively
